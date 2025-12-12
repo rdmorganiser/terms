@@ -29,19 +29,20 @@
                     {% elif key in ["is_optional","is_collection","key","path"] %}<p class="code-order">
                     {% elif key in ["comment","help_de","help_en","help_es","help_fr","help_it"] %}<p class="code-import">
                     {% else %}<p>{% endif %}
-                    {% if value is string %}
-                    {{ value | striptags }}
-                    {% elif value is mapping %}
-                    <a href="{{ base_url }}{{ value.url }}">{{ value.uri }}</a>
-                    {% elif value is iterable %}
-                    <ul class="list-unstyled">
-                        {% for item in value %}
-                        <li><a href="{{ base_url }}{{ item.url }}">{{ item.uri }}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                    {{ value }}</p>
-                    {% endif %}
+                        {% if value is string %}
+                        {{ value | striptags }}
+                        {% elif value is mapping %}
+                        <a href="{{ base_url }}{{ value.url }}">{{ value.uri }}</a>
+                        {% elif value is iterable %}
+                        <ul class="list-unstyled">
+                            {% for item in value %}
+                            <li><a href="{{ base_url }}{{ item.url }}">{{ item.uri }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        {{ value }}
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         </li>
