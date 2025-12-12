@@ -15,7 +15,7 @@
         <script src="{{ base_url }}static/assets/minisearch.min.js"></script>
         <script src="{{ base_url }}static/js/app.js"></script>
     </head>
-    <body>
+    <body  data-base-url="{{ base_url }}">
         {% include "_nav.html" %}
 
         <main>
@@ -24,5 +24,19 @@
                 {% endblock %}
             </div>
         </main>
+
+        <footer class="footer mt-auto py-4 border-top bg-light">
+            <div class="container d-flex flex-column flex-md-row justify-content-between align-items-start">
+                <div>
+                    <strong>RDMO terms</strong>
+                    <div class="small text-muted">Browse the published rdmo-catalog elements.</div>
+                </div>
+                <div class="small">
+                    <a href="https://github.com/rdmorganiser/rdmo-terms" class="me-3" target="_blank" rel="noopener">GitHub source</a>
+                    <a href="https://rdmo.readthedocs.io/" target="_blank" rel="noopener">RDMO documentation</a>
+                </div>
+            </div>
+        </footer>
+
   </body>
 </html>

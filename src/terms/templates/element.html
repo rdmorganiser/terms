@@ -2,6 +2,11 @@
 
 {% block content %}
 
+<h1 class="mb-3">
+    {{ element.type.capitalize() }}
+    <small class="text-muted">{{ element.uri }}</small>
+</h1>
+
 {% include "_element.html" %}
 
 {% endblock %}

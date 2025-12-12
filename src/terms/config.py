@@ -6,6 +6,9 @@ from dotenv import load_dotenv
 load_dotenv('.env')
 
 base_url = os.getenv('BASE_URL', '/')
+
+if os.getenv('CATALOG_PATH') is None:
+    raise RuntimeError("CATALOG_PATH environment variable must be set")
 catalog_path = Path(os.getenv('CATALOG_PATH'))
 public_path = Path(os.getenv('PUBLIC_PATH', 'public'))
 

@@ -6,14 +6,13 @@ from collections import defaultdict
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 import typer
-from dotenv import load_dotenv
 
 from .config import base_url, catalog_path, public_path
-from .utils import copy_static, download_assets, gather_elements, get_template
-
-load_dotenv('.env')
+from .elements import build_element_tree, gather_elements
+from .utils import copy_static, download_assets, gather_files, get_template_env
 
 app = typer.Typer()
+template_env = get_template_env()
 
 @app.command()
 def build():
@@ -26,9 +25,9 @@ def build():
 
 @app.command()
 def index():
-    template = get_template('index.html')
-
-    elements = gather_elements(catalog_path)
+    template = template_env.get_template('index.html')
+    xml_files = gather_files(catalog_path)
+    elements = gather_elements(xml_files)
 
     html = template.render(base_url=base_url, elements=elements)
     html_path = public_path / 'index.html'
@@ -40,11 +39,12 @@ def index():
 @app.command()
 def elements():
     module_elements = defaultdict(list)
-    for element in gather_elements(catalog_path):
+    xml_files = gather_files(catalog_path)
+    for element in gather_elements(xml_files):
         module_elements[element['module']].append(element)
 
     for module, elements in module_elements.items():
-        template = get_template('elements.html')
+        template = template_env.get_template('elements.html')
 
         html = template.render(base_url=base_url, module=module, elements=elements)
         html_path = public_path / module
@@ -55,8 +55,17 @@ def elements():
 
 @app.command()
 def element():
-    for element in gather_elements(catalog_path):
-        template = get_template('element.html')
+    xml_files = gather_files(catalog_path)
+    elements = gather_elements(xml_files)
+    elements_by_uri = {element["uri"]: element for element in elements}
+
+    for element in elements:
+        if element.get("type") == "catalog":
+            tree = build_element_tree(element["uri"], elements_by_uri)
+            if tree:
+                element["tree"] = tree
+
+        template = template_env.get_template('element.html')
 
         html = template.render(base_url=base_url, element=element)
         html_path = public_path / element['module'] / element.get('uri_path', element.get('path', ''))

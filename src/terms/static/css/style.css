@@ -8,8 +8,7 @@
     --rdmo-color-link-hover: #2a5d90;
     --rdmo-color-light-gray: #f8f9fa;
     --rdmo-color-dark-gray: #999;
-    --rdmo-color-header: #fff;
-    --rdmo-color-header-bg: #000;
+    --rdmo-color-header: #fff;    --rdmo-color-header-bg: #000;
     --rdmo-color-header-height: 300px;
     --rdmo-color-footer: #999;
     --rdmo-color-footer-bg: #001;
@@ -45,6 +44,10 @@ nav.navbar .filter-form {
     }
 }
 
+nav.navbar #language-toggle {
+    min-width: 8rem;
+}
+
 .navbar-toggler-icon {
     --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
@@ -52,4 +55,8 @@ nav.navbar .filter-form {
 main {
     margin-top: 6rem;
     margin-bottom: 6rem;
+}
+
+.footer {
+    margin-top: auto;
 }
